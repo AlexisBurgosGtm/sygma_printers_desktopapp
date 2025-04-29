@@ -1,0 +1,4 @@
+﻿sql8010.site4now.net
+db_a6478c_sygmapos
+db_a6478c_sygmapos_admin
+razors1805

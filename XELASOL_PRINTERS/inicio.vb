@@ -1,12 +1,74 @@
-﻿Public Class inicio
+﻿
+
+
+Imports System.Data.SqlClient
+
+
+Public Class inicio
 
 
 
     Private Sub inicio_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
+        Try
+            Call cargar_conexion()
+        Catch ex As Exception
+
+        End Try
 
 
+        Call cargar_empresas()
+        Call cargar_meses()
+
+
+        Me.cmbMes.SelectedValue = Today.Month
+        Me.cmbAnio.Text = Today.Year.ToString
+
+        Me.cmbActivo.Text = "NO"
+
+        Call CargarGrid()
+
+
+
+    End Sub
+
+
+    Private Sub cargar_empresas()
+
+
+        Dim tbl As New DS_General.tblEmpresasDataTable
+
+        Try
+            Using cn As New SqlConnection(strSqlConectionString)
+                If cn.State <> ConnectionState.Open Then
+                    cn.Open()
+                End If
+
+                Dim cmd As New SqlCommand("SELECT EMPNIT, NOMBRE AS EMPRESA FROM EMPRESAS", cn)
+
+                Dim da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(tbl)
+
+
+            End Using
+        Catch ex As Exception
+            tbl = Nothing
+        End Try
+
+
+        With Me.cmbEmpresas
+            .DataSource = tbl
+            .DisplayMember = "EMPRESA"
+            .ValueMember = "EMPNIT"
+        End With
+
+
+    End Sub
+
+
+    Private Sub cargar_meses()
 
         Dim tblMeses As New DataTable
         With tblMeses.Columns
@@ -36,22 +98,111 @@
             .ValueMember = "CODMES"
             .DisplayMember = "DESMES"
         End With
-
-        Me.cmbMes.SelectedValue = Today.Month
-        Me.cmbAnio.Text = Today.Year.ToString
-
-
-
-        Call CargarGrid()
-
-
     End Sub
+
+
+
+
 
 
     Private Sub CargarGrid()
 
 
+
+        Try
+
+            Dim empnit As String = Me.cmbEmpresas.SelectedValue.ToString
+            Dim mes As Integer = CType(Me.cmbMes.SelectedValue, Integer)
+            Dim anio As Integer = CType(Me.cmbAnio.Text, Integer)
+            Dim st As String = Me.cmbActivo.Text
+
+
+
+            Dim tbl As New DS_General.tblEmbarquesDataTable
+
+            Try
+                Using cn As New SqlConnection(strSqlConectionString)
+                    If cn.State <> ConnectionState.Open Then
+                        cn.Open()
+                    End If
+
+                    Dim cmd As New SqlCommand("SELECT EMBARQUES.CODEMBARQUE, 
+                            EMBARQUES.DESCRIPCION, 
+                            EMBARQUES.CODEMPLEADO AS CODREPARTIDOR, 
+                            EMPLEADOS.NOMEMPLEADO, 
+                            EMBARQUES.FECHA
+                            FROM     EMBARQUES LEFT OUTER JOIN
+                                              EMPLEADOS ON EMBARQUES.CODEMPLEADO = EMPLEADOS.CODEMPLEADO
+                            WHERE  (EMBARQUES.EMPNIT = @E) 
+                            AND (EMBARQUES.MES = @M) 
+                            AND (EMBARQUES.ANIO = @A)
+                            AND (EMBARQUES.FINALIZADO = @ST)", cn)
+                    cmd.Parameters.AddWithValue("@E", empnit)
+                    cmd.Parameters.AddWithValue("@ST", st)
+                    cmd.Parameters.AddWithValue("@M", mes)
+                    cmd.Parameters.AddWithValue("@A", anio)
+
+                    Dim da As New SqlDataAdapter
+                    da.SelectCommand = cmd
+                    da.Fill(tbl)
+
+
+                End Using
+            Catch ex As Exception
+                tbl = Nothing
+                MsgBox(ex.ToString)
+            End Try
+
+
+            Me.gridEmbarques.DataSource = tbl
+
+        Catch ex As Exception
+
+        End Try
+
+
+
+
+
+
     End Sub
+
+    Private Sub cmbEmpresas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEmpresas.SelectedIndexChanged
+        Call CargarGrid()
+    End Sub
+
+    Private Sub cmbMes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbMes.SelectedIndexChanged
+        Call CargarGrid()
+
+    End Sub
+
+    Private Sub cmbAnio_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAnio.SelectedIndexChanged
+        Call CargarGrid()
+
+    End Sub
+
+    Private Sub cmbActivo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbActivo.SelectedIndexChanged
+        Call CargarGrid()
+
+    End Sub
+
+
+
+
+    Private Sub GridViewEmbarques_FocusedRowChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs) Handles GridViewEmbarques.FocusedRowChanged
+
+
+        Try
+
+            Dim drw As DataRow = Me.GridViewEmbarques.GetFocusedRow
+
+            Me.lbEmbarque.Text = drw.Item("DESCRIPCION").ToString
+        Catch ex As Exception
+            Me.lbEmbarque.Text = "-"
+        End Try
+
+    End Sub
+
 
 
 End Class
