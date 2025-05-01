@@ -7,6 +7,8 @@ Imports System.Data.SqlClient
 Public Class inicio
 
 
+    Dim selected_codembarque As String = ""
+
 
     Private Sub inicio_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -64,6 +66,7 @@ Public Class inicio
             .ValueMember = "EMPNIT"
         End With
 
+        GlobalEmpNit = Me.cmbEmpresas.SelectedValue
 
     End Sub
 
@@ -168,6 +171,7 @@ Public Class inicio
     End Sub
 
     Private Sub cmbEmpresas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEmpresas.SelectedIndexChanged
+        GlobalEmpNit = Me.cmbEmpresas.SelectedValue.ToString
         Call CargarGrid()
     End Sub
 
@@ -188,18 +192,56 @@ Public Class inicio
 
 
 
+    Dim drw As DataRow
 
     Private Sub GridViewEmbarques_FocusedRowChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs) Handles GridViewEmbarques.FocusedRowChanged
 
+        drw = Nothing
 
         Try
 
-            Dim drw As DataRow = Me.GridViewEmbarques.GetFocusedRow
+            drw = Me.GridViewEmbarques.GetFocusedDataRow
 
-            Me.lbEmbarque.Text = drw.Item("DESCRIPCION").ToString
+
+            Me.lbEmbarque.Text = drw.Item(0).ToString
+            selected_codembarque = drw.Item(0).ToString
+
         Catch ex As Exception
+
+
             Me.lbEmbarque.Text = "-"
         End Try
+
+    End Sub
+
+    Private Sub btnRptProductos_Click(sender As Object, e As EventArgs) Handles btnRptProductos.Click
+
+        GlobalEmpNit = Me.cmbEmpresas.SelectedValue.ToString
+
+        Call rptEmbarqueProductos(selected_codembarque)
+
+    End Sub
+
+    Private Sub btnRptDocumentos_Click(sender As Object, e As EventArgs) Handles btnRptDocumentos.Click
+
+        GlobalEmpNit = Me.cmbEmpresas.SelectedValue.ToString
+
+        Call rptEmbarqueDocumentos(selected_codembarque)
+
+    End Sub
+
+    Private Sub btnRptBoletas_Click(sender As Object, e As EventArgs) Handles btnRptBoletas.Click
+        GlobalEmpNit = Me.cmbEmpresas.SelectedValue.ToString
+        Call rptEmbarqueBoletas(selected_codembarque)
+
+    End Sub
+
+    Private Sub btnRptTickets_Click(sender As Object, e As EventArgs) Handles btnRptTickets.Click
+
+        GlobalEmpNit = Me.cmbEmpresas.SelectedValue.ToString
+        Call rptEmbarqueBoletasTicket(selected_codembarque)
+
+
 
     End Sub
 

@@ -35,6 +35,10 @@ Partial Class inicio
         Me.colNOMEMPLEADO = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colFECHA = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GroupControl2 = New DevExpress.XtraEditors.GroupControl()
+        Me.btnRptTickets = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnRptBoletas = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnRptDocumentos = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnRptProductos = New DevExpress.XtraEditors.SimpleButton()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.lbEmbarque = New DevExpress.XtraEditors.LabelControl()
         Me.GroupControl3 = New DevExpress.XtraEditors.GroupControl()
@@ -51,6 +55,7 @@ Partial Class inicio
         CType(Me.DS_General, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridViewEmbarques, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupControl2.SuspendLayout()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl3.SuspendLayout()
         Me.SuspendLayout()
@@ -137,11 +142,59 @@ Partial Class inicio
         '
         'GroupControl2
         '
+        Me.GroupControl2.Controls.Add(Me.btnRptTickets)
+        Me.GroupControl2.Controls.Add(Me.btnRptBoletas)
+        Me.GroupControl2.Controls.Add(Me.btnRptDocumentos)
+        Me.GroupControl2.Controls.Add(Me.btnRptProductos)
         Me.GroupControl2.Location = New System.Drawing.Point(885, 95)
         Me.GroupControl2.Name = "GroupControl2"
         Me.GroupControl2.Size = New System.Drawing.Size(313, 527)
         Me.GroupControl2.TabIndex = 1
         Me.GroupControl2.Text = "IMPRESIONES"
+        '
+        'btnRptTickets
+        '
+        Me.btnRptTickets.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRptTickets.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft
+        Me.btnRptTickets.ImageOptions.SvgImage = CType(resources.GetObject("btnRptTickets.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
+        Me.btnRptTickets.Location = New System.Drawing.Point(21, 363)
+        Me.btnRptTickets.Name = "btnRptTickets"
+        Me.btnRptTickets.Size = New System.Drawing.Size(276, 78)
+        Me.btnRptTickets.TabIndex = 3
+        Me.btnRptTickets.Text = "LISTADO TICKETS"
+        '
+        'btnRptBoletas
+        '
+        Me.btnRptBoletas.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRptBoletas.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft
+        Me.btnRptBoletas.ImageOptions.SvgImage = CType(resources.GetObject("btnRptBoletas.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
+        Me.btnRptBoletas.Location = New System.Drawing.Point(21, 260)
+        Me.btnRptBoletas.Name = "btnRptBoletas"
+        Me.btnRptBoletas.Size = New System.Drawing.Size(276, 78)
+        Me.btnRptBoletas.TabIndex = 2
+        Me.btnRptBoletas.Text = "LISTADO BOLETAS"
+        '
+        'btnRptDocumentos
+        '
+        Me.btnRptDocumentos.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRptDocumentos.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft
+        Me.btnRptDocumentos.ImageOptions.SvgImage = CType(resources.GetObject("btnRptDocumentos.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
+        Me.btnRptDocumentos.Location = New System.Drawing.Point(21, 146)
+        Me.btnRptDocumentos.Name = "btnRptDocumentos"
+        Me.btnRptDocumentos.Size = New System.Drawing.Size(276, 78)
+        Me.btnRptDocumentos.TabIndex = 1
+        Me.btnRptDocumentos.Text = "LISTA DOCUMENTOS"
+        '
+        'btnRptProductos
+        '
+        Me.btnRptProductos.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRptProductos.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft
+        Me.btnRptProductos.ImageOptions.SvgImage = CType(resources.GetObject("btnRptProductos.ImageOptions.SvgImage"), DevExpress.Utils.Svg.SvgImage)
+        Me.btnRptProductos.Location = New System.Drawing.Point(21, 39)
+        Me.btnRptProductos.Name = "btnRptProductos"
+        Me.btnRptProductos.Size = New System.Drawing.Size(276, 78)
+        Me.btnRptProductos.TabIndex = 0
+        Me.btnRptProductos.Text = "PICKING PRODUCTOS"
         '
         'LabelControl1
         '
@@ -247,7 +300,7 @@ Partial Class inicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1219, 636)
+        Me.ClientSize = New System.Drawing.Size(1220, 636)
         Me.Controls.Add(Me.GroupControl3)
         Me.Controls.Add(Me.lbEmbarque)
         Me.Controls.Add(Me.LabelControl1)
@@ -263,6 +316,7 @@ Partial Class inicio
         CType(Me.DS_General, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridViewEmbarques, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GroupControl2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupControl2.ResumeLayout(False)
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl3.ResumeLayout(False)
         Me.GroupControl3.PerformLayout()
@@ -290,4 +344,8 @@ Partial Class inicio
     Friend WithEvents colFECHA As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents cmbEmpresas As ComboBox
     Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents btnRptBoletas As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnRptDocumentos As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnRptProductos As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnRptTickets As DevExpress.XtraEditors.SimpleButton
 End Class

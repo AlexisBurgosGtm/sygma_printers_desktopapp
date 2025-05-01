@@ -51,18 +51,26 @@
     <ApplicationIcon>XELASOL_ICONO.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Charts.v21.2.Core, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.Desktop.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v21.2.Core, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v21.2.Core, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v21.2.Core, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v21.2.Core, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v21.2.Core, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v21.2.Export, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v21.2.Core, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v21.2.UI, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v21.2.Core, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v21.2, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v21.2.Extensions, Version=21.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -100,14 +108,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DS_General.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Form1.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="GeneralModule.vb" />
+    <Compile Include="GeneralWaitForm.Designer.vb">
+      <DependentUpon>GeneralWaitForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralWaitForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="inicio.Designer.vb">
       <DependentUpon>inicio.vb</DependentUpon>
     </Compile>
@@ -129,10 +136,34 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="REPORTS\rpt_boletas.Designer.vb">
+      <DependentUpon>rpt_boletas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="REPORTS\rpt_boletas.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="REPORTS\rpt_documentos.Designer.vb">
+      <DependentUpon>rpt_documentos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="REPORTS\rpt_documentos.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="REPORTS\rpt_productos.Designer.vb">
+      <DependentUpon>rpt_productos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="REPORTS\rpt_productos.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="REPORTS\rpt_ticket.Designer.vb">
+      <DependentUpon>rpt_ticket.vb</DependentUpon>
+    </Compile>
+    <Compile Include="REPORTS\rpt_ticket.vb">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="GeneralWaitForm.resx">
+      <DependentUpon>GeneralWaitForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="inicio.resx">
       <DependentUpon>inicio.vb</DependentUpon>
@@ -143,6 +174,18 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="REPORTS\rpt_boletas.resx">
+      <DependentUpon>rpt_boletas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="REPORTS\rpt_documentos.resx">
+      <DependentUpon>rpt_documentos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="REPORTS\rpt_productos.resx">
+      <DependentUpon>rpt_productos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="REPORTS\rpt_ticket.resx">
+      <DependentUpon>rpt_ticket.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
