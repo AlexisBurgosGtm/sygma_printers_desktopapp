@@ -22,12 +22,6 @@ Partial Public Class rpt_boletas
         Dim XrSummary1 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(rpt_boletas))
         Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
-        Me.TopMargin = New DevExpress.XtraReports.UI.TopMarginBand()
-        Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
-        Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
-        Me.GroupHeader1 = New DevExpress.XtraReports.UI.GroupHeaderBand()
-        Me.GroupFooter1 = New DevExpress.XtraReports.UI.GroupFooterBand()
-        Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
         Me.line5 = New DevExpress.XtraReports.UI.XRLine()
         Me.line6 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel4 = New DevExpress.XtraReports.UI.XRLabel()
@@ -36,7 +30,11 @@ Partial Public Class rpt_boletas
         Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel9 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.TopMargin = New DevExpress.XtraReports.UI.TopMarginBand()
+        Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.XrPageInfo1 = New DevExpress.XtraReports.UI.XRPageInfo()
+        Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
+        Me.GroupHeader1 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.line4 = New DevExpress.XtraReports.UI.XRLine()
         Me.label4 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel26 = New DevExpress.XtraReports.UI.XRLabel()
@@ -58,7 +56,9 @@ Partial Public Class rpt_boletas
         Me.label3 = New DevExpress.XtraReports.UI.XRLabel()
         Me.label6 = New DevExpress.XtraReports.UI.XRLabel()
         Me.line3 = New DevExpress.XtraReports.UI.XRLine()
+        Me.GroupFooter1 = New DevExpress.XtraReports.UI.GroupFooterBand()
         Me.line1 = New DevExpress.XtraReports.UI.XRLine()
+        Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
         Me.label8 = New DevExpress.XtraReports.UI.XRLabel()
         Me.label1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.imgLogo = New DevExpress.XtraReports.UI.XRPictureBox()
@@ -75,47 +75,6 @@ Partial Public Class rpt_boletas
         Me.Detail.Name = "Detail"
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'TopMargin
-        '
-        Me.TopMargin.HeightF = 12.0!
-        Me.TopMargin.Name = "TopMargin"
-        Me.TopMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
-        Me.TopMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'BottomMargin
-        '
-        Me.BottomMargin.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPageInfo1})
-        Me.BottomMargin.HeightF = 30.0!
-        Me.BottomMargin.Name = "BottomMargin"
-        Me.BottomMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
-        Me.BottomMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        '
-        'PageFooter
-        '
-        Me.PageFooter.HeightF = 0!
-        Me.PageFooter.Name = "PageFooter"
-        '
-        'GroupHeader1
-        '
-        Me.GroupHeader1.BackColor = System.Drawing.Color.Transparent
-        Me.GroupHeader1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.line4, Me.label4, Me.XrLabel26, Me.line2, Me.label7, Me.XrLabel12, Me.XrLabel14, Me.XrLabel23, Me.label11, Me.XrLabel25, Me.XrLabel21, Me.XrLabel20, Me.XrLabel19, Me.XrLabel18, Me.XrLabel17, Me.XrLabel11, Me.XrLabel3, Me.label2, Me.label3, Me.label6, Me.line3})
-        Me.GroupHeader1.GroupFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("CODDOC", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending), New DevExpress.XtraReports.UI.GroupField("CORRELATIVO", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
-        Me.GroupHeader1.HeightF = 90.10934!
-        Me.GroupHeader1.Name = "GroupHeader1"
-        Me.GroupHeader1.StylePriority.UseBackColor = False
-        '
-        'GroupFooter1
-        '
-        Me.GroupFooter1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.line1})
-        Me.GroupFooter1.HeightF = 10.41667!
-        Me.GroupFooter1.Name = "GroupFooter1"
-        '
-        'ReportHeader
-        '
-        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.label8, Me.label1, Me.imgLogo, Me.XrLabel1, Me.XrLabel13})
-        Me.ReportHeader.HeightF = 64.15742!
-        Me.ReportHeader.Name = "ReportHeader"
         '
         'line5
         '
@@ -228,6 +187,21 @@ Partial Public Class rpt_boletas
         Me.XrLabel9.Text = "XrLabel9"
         Me.XrLabel9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'TopMargin
+        '
+        Me.TopMargin.HeightF = 12.0!
+        Me.TopMargin.Name = "TopMargin"
+        Me.TopMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
+        Me.TopMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'BottomMargin
+        '
+        Me.BottomMargin.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPageInfo1})
+        Me.BottomMargin.HeightF = 30.0!
+        Me.BottomMargin.Name = "BottomMargin"
+        Me.BottomMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
+        Me.BottomMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
         'XrPageInfo1
         '
         Me.XrPageInfo1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -237,6 +211,20 @@ Partial Public Class rpt_boletas
         Me.XrPageInfo1.SizeF = New System.Drawing.SizeF(164.5829!, 13.0!)
         Me.XrPageInfo1.StylePriority.UseFont = False
         Me.XrPageInfo1.TextFormatString = "Página {0} de {1}"
+        '
+        'PageFooter
+        '
+        Me.PageFooter.HeightF = 0!
+        Me.PageFooter.Name = "PageFooter"
+        '
+        'GroupHeader1
+        '
+        Me.GroupHeader1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupHeader1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.line4, Me.label4, Me.XrLabel26, Me.line2, Me.label7, Me.XrLabel12, Me.XrLabel14, Me.XrLabel23, Me.label11, Me.XrLabel25, Me.XrLabel21, Me.XrLabel20, Me.XrLabel19, Me.XrLabel18, Me.XrLabel17, Me.XrLabel11, Me.XrLabel3, Me.label2, Me.label3, Me.label6, Me.line3})
+        Me.GroupHeader1.GroupFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("CODDOC", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending), New DevExpress.XtraReports.UI.GroupField("CORRELATIVO", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
+        Me.GroupHeader1.HeightF = 90.10934!
+        Me.GroupHeader1.Name = "GroupHeader1"
+        Me.GroupHeader1.StylePriority.UseBackColor = False
         '
         'line4
         '
@@ -317,7 +305,7 @@ Partial Public Class rpt_boletas
         'XrLabel23
         '
         Me.XrLabel23.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel23.LocationFloat = New DevExpress.Utils.PointFloat(389.9583!, 26.52454!)
+        Me.XrLabel23.LocationFloat = New DevExpress.Utils.PointFloat(410.3024!, 26.52454!)
         Me.XrLabel23.Name = "XrLabel23"
         Me.XrLabel23.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel23.SizeF = New System.Drawing.SizeF(100.0!, 15.05743!)
@@ -405,7 +393,7 @@ Partial Public Class rpt_boletas
         Me.XrLabel11.LocationFloat = New DevExpress.Utils.PointFloat(100.643!, 27.24075!)
         Me.XrLabel11.Name = "XrLabel11"
         Me.XrLabel11.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel11.SizeF = New System.Drawing.SizeF(277.0833!, 14.66667!)
+        Me.XrLabel11.SizeF = New System.Drawing.SizeF(309.6594!, 14.66667!)
         Me.XrLabel11.StylePriority.UseFont = False
         Me.XrLabel11.Text = "XrLabel11"
         '
@@ -469,12 +457,24 @@ Partial Public Class rpt_boletas
         Me.line3.Name = "line3"
         Me.line3.SizeF = New System.Drawing.SizeF(9.999999!, 85.02604!)
         '
+        'GroupFooter1
+        '
+        Me.GroupFooter1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.line1})
+        Me.GroupFooter1.HeightF = 10.41667!
+        Me.GroupFooter1.Name = "GroupFooter1"
+        '
         'line1
         '
         Me.line1.LineStyle = System.Drawing.Drawing2D.DashStyle.DashDot
         Me.line1.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
         Me.line1.Name = "line1"
         Me.line1.SizeF = New System.Drawing.SizeF(790.4637!, 5.083305!)
+        '
+        'ReportHeader
+        '
+        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.label8, Me.label1, Me.imgLogo, Me.XrLabel1, Me.XrLabel13})
+        Me.ReportHeader.HeightF = 64.15742!
+        Me.ReportHeader.Name = "ReportHeader"
         '
         'label8
         '
