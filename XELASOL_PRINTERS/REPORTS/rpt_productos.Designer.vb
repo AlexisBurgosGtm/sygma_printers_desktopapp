@@ -50,6 +50,7 @@ Partial Public Class rpt_productos
         Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.XrSubreportResumen = New DevExpress.XtraReports.UI.XRSubreport()
         Me.table4 = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow4 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.tableCell12 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -73,7 +74,6 @@ Partial Public Class rpt_productos
         Me.tableCell6 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell2 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell3 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.rptSubResumenVendedor = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLine1 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
@@ -395,9 +395,16 @@ Partial Public Class rpt_productos
         '
         'ReportFooter
         '
-        Me.ReportFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table4, Me.line1, Me.label4, Me.table3, Me.label3, Me.label2, Me.table2, Me.label1, Me.table1, Me.rptSubResumenVendedor, Me.XrLabel14, Me.XrLine1, Me.XrLabel12})
+        Me.ReportFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrSubreportResumen, Me.table4, Me.line1, Me.label4, Me.table3, Me.label3, Me.label2, Me.table2, Me.label1, Me.table1, Me.XrLabel14, Me.XrLine1, Me.XrLabel12})
         Me.ReportFooter.HeightF = 820.3488!
         Me.ReportFooter.Name = "ReportFooter"
+        '
+        'XrSubreportResumen
+        '
+        Me.XrSubreportResumen.LocationFloat = New DevExpress.Utils.PointFloat(9.999998!, 0!)
+        Me.XrSubreportResumen.Name = "XrSubreportResumen"
+        Me.XrSubreportResumen.ReportSource = New XELASOL_PRINTERS.rpt_sub_resumen_vendedores()
+        Me.XrSubreportResumen.SizeF = New System.Drawing.SizeF(393.5417!, 201.0417!)
         '
         'table4
         '
@@ -502,7 +509,7 @@ Partial Public Class rpt_productos
         'label2
         '
         Me.label2.Font = New System.Drawing.Font("Tahoma", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.label2.LocationFloat = New DevExpress.Utils.PointFloat(396.9583!, 56.20842!)
+        Me.label2.LocationFloat = New DevExpress.Utils.PointFloat(409.4583!, 56.20842!)
         Me.label2.Name = "label2"
         Me.label2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.label2.SizeF = New System.Drawing.SizeF(169.9166!, 23.0!)
@@ -516,7 +523,7 @@ Partial Public Class rpt_productos
         Me.table2.Borders = CType((((DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top) _
             Or DevExpress.XtraPrinting.BorderSide.Right) _
             Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.table2.LocationFloat = New DevExpress.Utils.PointFloat(397.1252!, 85.20845!)
+        Me.table2.LocationFloat = New DevExpress.Utils.PointFloat(409.6252!, 85.20845!)
         Me.table2.Name = "table2"
         Me.table2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow2})
         Me.table2.SizeF = New System.Drawing.SizeF(327.0834!, 18.74994!)
@@ -620,12 +627,6 @@ Partial Public Class rpt_productos
         Me.tableCell3.StylePriority.UseFont = False
         Me.tableCell3.Text = "Vendedor"
         Me.tableCell3.Weight = 1.2244599024969207R
-        '
-        'rptSubResumenVendedor
-        '
-        Me.rptSubResumenVendedor.LocationFloat = New DevExpress.Utils.PointFloat(0.1666705!, 0!)
-        Me.rptSubResumenVendedor.Name = "rptSubResumenVendedor"
-        Me.rptSubResumenVendedor.SizeF = New System.Drawing.SizeF(380.8334!, 160.5001!)
         '
         'XrLabel14
         '
@@ -747,7 +748,6 @@ Partial Public Class rpt_productos
     Friend WithEvents tableCell6 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell2 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell3 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents rptSubResumenVendedor As DevExpress.XtraReports.UI.XRSubreport
     Friend WithEvents XrLabel14 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLine1 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents XrLabel12 As DevExpress.XtraReports.UI.XRLabel
@@ -756,4 +756,5 @@ Partial Public Class rpt_productos
     Friend WithEvents DS_General1 As DS_General
     Friend WithEvents XrLabel23 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel24 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrSubreportResumen As DevExpress.XtraReports.UI.XRSubreport
 End Class

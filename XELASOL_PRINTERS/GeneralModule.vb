@@ -10,6 +10,8 @@ Module GeneralModule
 
 
     Public GlobalEmpNit As String = ""
+    Public default_empnit As String = ""
+    Public GlobalSelectedCodembarque As String = ""
 
 
     Public GlobalPathReportes As String = Application.StartupPath + "/"
@@ -25,6 +27,8 @@ Module GeneralModule
             Dim dbs = sr.ReadLine()
             Dim user = sr.ReadLine()
             Dim pass = sr.ReadLine()
+            default_empnit = sr.ReadLine()
+
             sr.Close()
 
             strSqlConectionString = "Data Source=" & server & ";Initial Catalog=" & dbs & ";User ID=" & user & ";Password=" & pass & ";MultipleActiveResultSets=True"
@@ -115,6 +119,123 @@ Module GeneralModule
                 Dim cmd As New SqlCommand(sql, cn)
                 cmd.Parameters.AddWithValue("@E", GlobalEmpNit)
                 cmd.Parameters.AddWithValue("@C", codembarque)
+
+                Dim dr As SqlDataReader = cmd.ExecuteReader
+                Do While dr.Read
+                    Dim uxc As Double = Double.Parse(dr(6))
+                    Dim totalunidades As Double = Double.Parse(dr(2))
+                    Dim caj As Double = totalunidades / uxc ' fardos totales con decimales // divide total unidades entre cajas
+                    Dim cajas As Double = Math.Truncate(caj) 'obtiene el entero de la division anterior para tener los fardos
+                    Dim unidades As Double = caj - cajas 'quito las cajas para obtener las unidades restantes
+                    Dim u As Double = unidades * uxc
+                    Dim un As Double = Math.Round(u)   ' Math.Ceiling(u) 'redondea hacia arriba 'CInt(Math.Ceiling(unidades * Double.Parse(dr(6))))
+
+                    tbl.Rows.Add(New Object() {
+                        dr(0), 'CODPROD
+                        dr(1), 'DESPROD
+                        dr(2), 'TOTALUNIDADES
+                        dr(3), 'TOTALCOSTO
+                        dr(4), 'TOTALPRECIO
+                        dr(5), 'CODEMBARQUE
+                        dr(6), 'UXC
+                        cajas, 'CAJAS
+                        un, 'UNIDADES
+                        dr(7), 'DES-EMBARQUE
+                        dr(8), 'REPARTIDOR
+                        pedidos, 'TOTAL PEDIDOS / DOCUMENTOS
+                        CType(dr("FACTOR"), Double) 'FACTOR
+                    })
+                Loop
+
+
+                r = True
+            Catch ex As Exception
+                tbl = Nothing
+                r = False
+                MsgBox(ex.ToString)
+            End Try
+        End Using
+
+
+        SplashScreenManager.ShowForm(inicio, GeneralWaitForm.GetType, True, True, ParentFormState.Locked)
+        Dim report As New XtraReport
+        Dim Adapter As New SqlDataAdapter
+        report = New rpt_productos
+
+        Try
+            'report.LoadLayout(GlobalPathReportes + "EMBARQUE_PRODUCTOS.repx")
+        Catch ex As Exception
+            'report.SaveLayout(GlobalPathReportes + "EMBARQUE_PRODUCTOS.repx")
+            'report.LoadLayout(GlobalPathReportes + "EMBARQUE_PRODUCTOS.repx")
+        End Try
+
+        report.DataSource = tbl
+        report.DataAdapter = Adapter
+        report.DataMember = "tblRptPicking"
+
+        Dim tool As ReportPrintTool = New ReportPrintTool(report)
+
+        report.CreateDocument()
+
+        SplashScreenManager.CloseForm()
+
+        report.ShowPreview
+
+        Return r
+
+    End Function
+
+
+    Public Function rptEmbarqueProductosAgrupado(ByVal codembarque As String) As Boolean
+        Dim r As Boolean
+        Dim tbl As New DS_General.tblRptPickingDataTable
+
+        SelectedEmbarque = codembarque
+
+        Dim pedidos As Double = 0
+        pedidos = getTotalesPicking(codembarque, "CONTEO")
+
+
+        Using cn As New SqlConnection(strSqlConectionString)
+            Try
+
+
+                If cn.State <> ConnectionState.Open Then
+                    cn.Open()
+                End If
+
+                'CARGA DE TOTAL DOCUMENTOS
+
+
+                'CARGA DE DATOS DEL PICKING
+                Dim sqlx As String
+
+
+                Dim sql As String = "
+                SELECT DOCPRODUCTOS.CODPROD, DOCPRODUCTOS.DESPROD, SUM(DOCPRODUCTOS.TOTALUNIDADES) AS TOTALUNIDADES, SUM(DOCPRODUCTOS.TOTALCOSTO) AS TOTALCOSTO, SUM(DOCPRODUCTOS.TOTALPRECIO) 
+                  AS TOTALPRECIO, 'VARIOS' AS CODEMBARQUE, PRODUCTOS.UXC, 'VARIOS' AS REPARTIDOR, 'VARIOS' AS DESEMBARQUE, SUM(DOCPRODUCTOS.TOTALUNIDADES) 
+                  / PRODUCTOS.UXC AS FACTOR
+FROM     DOCUMENTOS LEFT OUTER JOIN
+                  EMPLEADOS RIGHT OUTER JOIN
+                  EMBARQUES ON EMPLEADOS.CODEMPLEADO = EMBARQUES.CODEMPLEADO AND EMPLEADOS.EMPNIT = EMBARQUES.EMPNIT ON DOCUMENTOS.EMPNIT = EMBARQUES.EMPNIT AND 
+                  DOCUMENTOS.CODEMBARQUE = EMBARQUES.CODEMBARQUE LEFT OUTER JOIN
+                  PRODUCTOS RIGHT OUTER JOIN
+                  DOCPRODUCTOS ON PRODUCTOS.CODPROD = DOCPRODUCTOS.CODPROD ON DOCUMENTOS.CORRELATIVO = DOCPRODUCTOS.CORRELATIVO AND DOCUMENTOS.CODDOC = DOCPRODUCTOS.CODDOC AND 
+                  DOCUMENTOS.EMPNIT = DOCPRODUCTOS.EMPNIT LEFT OUTER JOIN
+                  TIPODOCUMENTOS ON DOCUMENTOS.CODDOC = TIPODOCUMENTOS.CODDOC AND DOCUMENTOS.EMPNIT = TIPODOCUMENTOS.EMPNIT
+		    WHERE (DOCUMENTOS.CODEMBARQUE IN (" + codembarque + "))
+            GROUP BY DOCPRODUCTOS.CODPROD, DOCPRODUCTOS.DESPROD, DOCUMENTOS.EMPNIT, PRODUCTOS.UXC, TIPODOCUMENTOS.TIPODOC,  DOCUMENTOS.STATUS
+            HAVING (TIPODOCUMENTOS.TIPODOC IN ('FAC', 'FCP', 'FEC', 'FEF', 'FES', 'FPC')) AND (DOCUMENTOS.STATUS <> 'A') AND (DOCUMENTOS.EMPNIT = @E)  
+            ORDER BY DOCPRODUCTOS.CODPROD    
+                "
+
+
+
+
+
+                Dim cmd As New SqlCommand(sql, cn)
+                cmd.Parameters.AddWithValue("@E", GlobalEmpNit)
+                'cmd.Parameters.AddWithValue("@C", codembarque)
 
                 Dim dr As SqlDataReader = cmd.ExecuteReader
                 Do While dr.Read
@@ -560,7 +681,189 @@ WHERE  (TIPODOCUMENTOS.TIPODOC IN ('FAC', 'FCP', 'FEC', 'FEF', 'FES', 'FPC')) AN
     End Function
 
 
+    Public Function tbl_resumen_vendedor(ByVal empnit As String, ByVal codembarque As String) As DataTable
 
+        Dim tbl As New DS_General.tbl_inventariosDataTable
+
+        Using cn As New SqlConnection(strSqlConectionString)
+            Try
+                If cn.State <> ConnectionState.Open Then
+                    cn.Open()
+                End If
+
+                Dim sql As String = "
+                    SELECT 
+                            EMPLEADOS.NOMEMPLEADO AS EMPLEADO, 
+                            COUNT(DOCUMENTOS.CODDOC) AS CONTEO, 
+                            SUM(DOCUMENTOS.TOTALCOSTO) AS TOTALCOSTO, 
+                            SUM(DOCUMENTOS.TOTALPRECIO) AS TOTALPRECIO
+                    FROM     DOCUMENTOS LEFT OUTER JOIN
+                                      EMPLEADOS ON DOCUMENTOS.CODEMP = EMPLEADOS.CODEMPLEADO AND DOCUMENTOS.EMPNIT = EMPLEADOS.EMPNIT LEFT OUTER JOIN
+                                      TIPODOCUMENTOS ON DOCUMENTOS.CODDOC = TIPODOCUMENTOS.CODDOC AND DOCUMENTOS.EMPNIT = TIPODOCUMENTOS.EMPNIT
+                    WHERE  
+                            (DOCUMENTOS.STATUS <> 'A') AND 
+                            (TIPODOCUMENTOS.TIPODOC IN ('FAC', 'FCP', 'FEC', 'FEF', 'FES', 'FPC')) AND 
+                            (DOCUMENTOS.EMPNIT = @E) AND 
+                            (DOCUMENTOS.CODEMBARQUE = @C)
+                    GROUP BY EMPLEADOS.NOMEMPLEADO
+                "
+
+                Dim cmd As New SqlCommand(sql, cn)
+
+                cmd.Parameters.AddWithValue("@E", GlobalEmpNit)
+                cmd.Parameters.AddWithValue("@C", codembarque)
+
+                Dim da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(tbl)
+
+
+            Catch ex As Exception
+                tbl = Nothing
+
+            End Try
+
+        End Using
+
+
+        Return tbl
+
+    End Function
+
+
+
+    'INVENTARIOS
+    Public Function tbl_inventarios(ByVal empnit As String) As DataTable
+
+        Dim tbl As New DS_General.tbl_inventariosDataTable
+
+        Using cn As New SqlConnection(strSqlConectionString)
+            Try
+                If cn.State <> ConnectionState.Open Then
+                    cn.Open()
+                End If
+
+                Dim sql As String = "
+                SELECT 
+                        view_invsaldo.CODPROD, 
+                        view_invsaldo.DESPROD, 
+                        view_invsaldo.TOTALUNIDADES, 
+                        view_invsaldo.TOTALCOSTO, 
+                        view_invsaldo.EXISTENCIA, 
+                        view_invsaldo.HABILITADO, 
+                        PRODUCTOS.CODMARCA, 
+                        MARCAS.DESMARCA,
+                        PRODUCTOS.UXC
+                FROM  PRODUCTOS RIGHT OUTER JOIN
+                        view_invsaldo ON PRODUCTOS.CODPROD = view_invsaldo.CODPROD LEFT OUTER JOIN
+                        MARCAS ON PRODUCTOS.CODMARCA = MARCAS.CODMARCA
+                WHERE (view_invsaldo.EMPNIT = @E) AND (view_invsaldo.HABILITADO='SI')
+                ORDER BY view_invsaldo.CODPROD
+                "
+
+                Dim cmd As New SqlCommand(sql, cn)
+                cmd.Parameters.AddWithValue("@E", GlobalEmpNit)
+
+                Dim dr As SqlDataReader = cmd.ExecuteReader
+
+                Do While dr.Read
+                    tbl.Rows.Add(New Object() {
+                        dr("CODPROD"), 'CODPROD
+                        dr("DESPROD"), 'DESPROD
+                        dr("CODMARCA"), 'CODMARCA
+                        dr("DESMARCA"), 'DESMARCA
+                        dr("EXISTENCIA"), 'TOTALUNIDADES
+                        dr("TOTALCOSTO"), 'TOTALCOSTO
+                        dr("UXC"), 'UXC
+                        get_cajas(Double.Parse(dr("EXISTENCIA")), Double.Parse(dr("UXC"))), 'CAJAS
+                        get_unidades(Double.Parse(dr("EXISTENCIA")), Double.Parse(dr("UXC"))) 'UNIDADES
+                    })
+                Loop
+
+
+
+            Catch ex As Exception
+                tbl = Nothing
+
+            End Try
+
+        End Using
+
+
+        Return tbl
+
+    End Function
+
+    Function get_cajas(ByVal totalunidades As Double, ByVal uxc As Double) As Double
+
+        Dim cajas As Double
+        Try
+            cajas = totalunidades / uxc
+            'cajas = FormatNumber(cajas, 0)
+            cajas = Math.Truncate(cajas)
+
+        Catch ex As Exception
+            cajas = 0
+        End Try
+
+        Return cajas
+
+    End Function
+
+    Function get_unidades(ByVal totalunidades As Double, ByVal uxc As Double) As Double
+
+        Dim cajas As Double
+        Dim unidades As Double
+        Dim factor As Double
+
+        Try
+            factor = totalunidades / uxc
+            'cajas = FormatNumber(factor, 0)
+            cajas = Math.Truncate(factor)
+
+            unidades = (factor - cajas) * uxc
+            unidades = CInt(unidades)
+
+        Catch ex As Exception
+            cajas = 0
+        End Try
+
+        Return unidades
+
+    End Function
+
+
+    Public Function rptInventario(ByVal empnit As String) As Boolean
+
+        Dim r As Boolean
+        Dim tbl As New DS_General.tbl_inventariosDataTable
+
+
+
+
+        SplashScreenManager.ShowForm(inicio, GeneralWaitForm.GetType, True, True, ParentFormState.Locked)
+        Dim report As New XtraReport
+        Dim Adapter As New SqlDataAdapter
+        report = New rpt_inventario
+
+
+        tbl = tbl_inventarios(empnit)
+
+        report.DataSource = tbl
+        report.DataAdapter = Adapter
+        report.DataMember = "tbl_inventarios"
+
+        Dim tool As ReportPrintTool = New ReportPrintTool(report)
+
+        report.CreateDocument()
+
+        SplashScreenManager.CloseForm()
+
+        report.ShowPreview
+
+        Return r
+
+    End Function
 
 
 

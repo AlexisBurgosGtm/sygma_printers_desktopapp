@@ -2,13 +2,14 @@
 
 
 Imports System.Data.SqlClient
-
+Imports DevExpress.XtraGrid.Columns
 
 Public Class inicio
 
 
     Dim selected_codembarque As String = ""
 
+    Dim selected_agrupados As String = ""
 
     Private Sub inicio_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -19,8 +20,28 @@ Public Class inicio
 
         End Try
 
+        Me.txtEmbarquesAgrupados.Text = selected_agrupados
+
 
         Call cargar_empresas()
+
+        If default_empnit = "TODAS" Then
+            Me.cmbEmpresas.Enabled = True
+            Me.cmbSucursalInventarios.Enabled = True
+        Else
+            Me.cmbEmpresas.Enabled = False
+            Me.cmbEmpresas.SelectedValue = default_empnit
+
+            Me.cmbSucursalInventarios.Enabled = False
+            Me.cmbSucursalInventarios.SelectedValue = default_empnit
+        End If
+
+
+
+
+
+
+
         Call cargar_meses()
 
 
@@ -31,10 +52,26 @@ Public Class inicio
 
         Call CargarGrid()
 
+        Call CargarGridInventario()
 
 
     End Sub
 
+
+    Private Sub btnEmbarques_Click(sender As Object, e As EventArgs) Handles btnEmbarques.Click
+        Me.NavigationFrame.SelectedPage = NP_EMBARQUES
+    End Sub
+
+    Private Sub btnInventarios_Click(sender As Object, e As EventArgs) Handles btnInventarios.Click
+        Me.NavigationFrame.SelectedPage = NP_INVENTARIOS
+    End Sub
+
+
+#Region " ** EMBARQUES ** "
+
+    Private Sub imgBtnAtrasEmbarques_Click(sender As Object, e As EventArgs) Handles imgBtnAtrasEmbarques.Click
+        Me.NavigationFrame.SelectedPage = NP_MENU
+    End Sub
 
     Private Sub cargar_empresas()
 
@@ -61,6 +98,12 @@ Public Class inicio
 
 
         With Me.cmbEmpresas
+            .DataSource = tbl
+            .DisplayMember = "EMPRESA"
+            .ValueMember = "EMPNIT"
+        End With
+
+        With Me.cmbSucursalInventarios
             .DataSource = tbl
             .DisplayMember = "EMPRESA"
             .ValueMember = "EMPNIT"
@@ -102,10 +145,6 @@ Public Class inicio
             .DisplayMember = "DESMES"
         End With
     End Sub
-
-
-
-
 
 
     Private Sub CargarGrid()
@@ -171,8 +210,13 @@ Public Class inicio
     End Sub
 
     Private Sub cmbEmpresas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEmpresas.SelectedIndexChanged
-        GlobalEmpNit = Me.cmbEmpresas.SelectedValue.ToString
-        Call CargarGrid()
+        Try
+            GlobalEmpNit = Me.cmbEmpresas.SelectedValue.ToString
+            Call CargarGrid()
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
     Private Sub cmbMes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbMes.SelectedIndexChanged
@@ -189,7 +233,6 @@ Public Class inicio
         Call CargarGrid()
 
     End Sub
-
 
 
     Dim drw As DataRow
@@ -218,6 +261,8 @@ Public Class inicio
 
         GlobalEmpNit = Me.cmbEmpresas.SelectedValue.ToString
 
+        GlobalSelectedCodembarque = selected_codembarque
+
         Call rptEmbarqueProductos(selected_codembarque)
 
     End Sub
@@ -244,6 +289,119 @@ Public Class inicio
 
 
     End Sub
+
+    Private Sub GridViewEmbarques_DoubleClick(sender As Object, e As EventArgs) Handles GridViewEmbarques.DoubleClick
+
+        Try
+            Dim drw As DataRow = Me.GridViewEmbarques.GetFocusedDataRow
+            Dim codemb As String = drw.Item("CODEMBARQUE").ToString
+
+            If selected_agrupados.Contains(codemb) = True Then
+                MsgBox("Este Embarque ya fue agregado al grupo")
+            Else
+                selected_agrupados = selected_agrupados + vbNewLine + "'" + codemb + "',"
+            End If
+
+
+            Me.txtEmbarquesAgrupados.Text = selected_agrupados.Substring(0, selected_agrupados.Length - 1)
+
+        Catch ex As Exception
+
+        End Try
+
+
+
+
+    End Sub
+
+
+
+    Private Sub btnRptProductosAgrupados_Click(sender As Object, e As EventArgs) Handles btnRptProductosAgrupados.Click
+
+        'selected_agrupados = selected_agrupados.Substring(0, selected_agrupados.Length - 1)
+        Try
+            Dim str As String = Me.txtEmbarquesAgrupados.Text
+
+            str = str.Replace(",,", ",")
+            'str = str.Substring(0, str.Length - 1)
+            str = str.Replace(Environment.NewLine, "")
+
+            Call rptEmbarqueProductosAgrupado(str)
+
+        Catch ex As Exception
+
+        End Try
+
+
+    End Sub
+
+
+    Private Sub btnLimpiarEmbarques_Click(sender As Object, e As EventArgs) Handles btnLimpiarEmbarques.Click
+        Me.txtEmbarquesAgrupados.Text = ""
+        selected_agrupados = ""
+    End Sub
+
+
+#End Region
+
+
+#Region " ** INVENTARIOS ** "
+
+    Private Sub imgBtnAtrasInventarios_Click(sender As Object, e As EventArgs) Handles imgBtnAtrasInventarios.Click
+        Me.NavigationFrame.SelectedPage = NP_MENU
+    End Sub
+
+
+
+    Private Sub CargarGridInventario()
+
+        Me.gridInventarios.DataSource = Nothing
+        Me.gridInventarios.DataSource = tbl_inventarios(Me.cmbSucursalInventarios.SelectedValue.ToString)
+
+    End Sub
+
+    Private Sub cmbSucursalInventarios_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSucursalInventarios.SelectedIndexChanged
+        Try
+            CargarGridInventario()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnExportarInventario_Click(sender As Object, e As EventArgs) Handles btnExportarInventario.Click
+
+        Dim PATH As String = Application.StartupPath + "/INVENTARIO_GENERAL.XLSX"
+
+        Try
+
+            Me.gridInventarios.ExportToXlsx(PATH)
+            Process.Start(PATH)
+
+        Catch ex As Exception
+            MsgBox("No se pudo exportar. Error: " + ex.ToString)
+        End Try
+
+    End Sub
+
+    Private Sub btnImprimirInventario_Click(sender As Object, e As EventArgs) Handles btnImprimirInventario.Click
+
+        Try
+
+            Call rptInventario(Me.cmbSucursalInventarios.SelectedValue.ToString)
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+
+
+
+
+
+#End Region
+
 
 
 
