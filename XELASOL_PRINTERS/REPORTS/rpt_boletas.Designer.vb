@@ -491,13 +491,13 @@ Partial Public Class rpt_boletas
         '
         'label1
         '
+        Me.label1.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "tblEmbarquesBoletas.EMPRESA")})
         Me.label1.Font = New System.Drawing.Font("Tahoma", 16.0!)
         Me.label1.LocationFloat = New DevExpress.Utils.PointFloat(100.0!, 0!)
         Me.label1.Name = "label1"
         Me.label1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.label1.SizeF = New System.Drawing.SizeF(364.9919!, 29.49075!)
+        Me.label1.SizeF = New System.Drawing.SizeF(502.4919!, 29.49075!)
         Me.label1.StylePriority.UseFont = False
-        Me.label1.Text = "DISTRIBUIDORA XELASOL QUICHÉ"
         '
         'imgLogo
         '

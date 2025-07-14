@@ -23,6 +23,7 @@ Partial Public Class rpt_ticket
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(rpt_ticket))
         Dim XrSummary2 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
+        Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel9 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
@@ -72,7 +73,6 @@ Partial Public Class rpt_ticket
         Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.DS_General1 = New XELASOL_PRINTERS.DS_General()
-        Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
         CType(Me.DS_General1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -83,6 +83,18 @@ Partial Public Class rpt_ticket
         Me.Detail.Name = "Detail"
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel7
+        '
+        Me.XrLabel7.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "tblEmbarquesBoletas.CODMEDIDA")})
+        Me.XrLabel7.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(282.1812!, 0!)
+        Me.XrLabel7.Multiline = True
+        Me.XrLabel7.Name = "XrLabel7"
+        Me.XrLabel7.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel7.SizeF = New System.Drawing.SizeF(57.92294!, 16.20832!)
+        Me.XrLabel7.StylePriority.UseFont = False
+        Me.XrLabel7.Text = "XrLabel7"
         '
         'XrLabel9
         '
@@ -515,6 +527,7 @@ Partial Public Class rpt_ticket
         '
         'label1
         '
+        Me.label1.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "tblEmbarquesBoletas.EMPRESA")})
         Me.label1.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
         Me.label1.LocationFloat = New DevExpress.Utils.PointFloat(62.91654!, 0!)
         Me.label1.Name = "label1"
@@ -522,7 +535,6 @@ Partial Public Class rpt_ticket
         Me.label1.SizeF = New System.Drawing.SizeF(219.6812!, 30.55329!)
         Me.label1.StylePriority.UseFont = False
         Me.label1.StylePriority.UseTextAlignment = False
-        Me.label1.Text = "DISTRIBUIDORA XELASOL QUICHÉ"
         Me.label1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         '
         'imgLogo
@@ -644,18 +656,6 @@ Partial Public Class rpt_ticket
         '
         Me.DS_General1.DataSetName = "DS_General"
         Me.DS_General1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'XrLabel7
-        '
-        Me.XrLabel7.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "tblEmbarquesBoletas.CODMEDIDA")})
-        Me.XrLabel7.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(282.1812!, 0!)
-        Me.XrLabel7.Multiline = True
-        Me.XrLabel7.Name = "XrLabel7"
-        Me.XrLabel7.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
-        Me.XrLabel7.SizeF = New System.Drawing.SizeF(57.92294!, 16.20832!)
-        Me.XrLabel7.StylePriority.UseFont = False
-        Me.XrLabel7.Text = "XrLabel7"
         '
         'rpt_ticket
         '

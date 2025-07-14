@@ -927,6 +927,8 @@ Partial Public Class DS_General
         
         Private columnTELCLIE As Global.System.Data.DataColumn
         
+        Private columnEMPRESA As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -1203,6 +1205,14 @@ Partial Public Class DS_General
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property EMPRESAColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnEMPRESA
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1269,9 +1279,10 @@ Partial Public Class DS_General
                     ByVal CODCLIENTE As String,  _
                     ByVal TELVENDEDOR As String,  _
                     ByVal TIPOPAGO As String,  _
-                    ByVal TELCLIE As String) As tblEmbarquesBoletasRow
+                    ByVal TELCLIE As String,  _
+                    ByVal EMPRESA As String) As tblEmbarquesBoletasRow
             Dim rowtblEmbarquesBoletasRow As tblEmbarquesBoletasRow = CType(Me.NewRow,tblEmbarquesBoletasRow)
-            Dim columnValuesArray() As Object = New Object() {FECHA, CODDOC, CORRELATIVO, NIT, NOMCLIENTE, DIRCLIENTE, EMAIL, TOTALVENTA, OBS, CODEMBARQUE, LAT, _LONG, DESREP, NOMVEN, CODPROD, DESPROD, CODMEDIDA, CANTIDAD, PRECIO, TOTALPRECIO, UXC, TOTALUNIDADES, EMBCAJAS, EMBUNIDADES, REFERENCIA, NEGOCIO, CODCLIENTE, TELVENDEDOR, TIPOPAGO, TELCLIE}
+            Dim columnValuesArray() As Object = New Object() {FECHA, CODDOC, CORRELATIVO, NIT, NOMCLIENTE, DIRCLIENTE, EMAIL, TOTALVENTA, OBS, CODEMBARQUE, LAT, _LONG, DESREP, NOMVEN, CODPROD, DESPROD, CODMEDIDA, CANTIDAD, PRECIO, TOTALPRECIO, UXC, TOTALUNIDADES, EMBCAJAS, EMBUNIDADES, REFERENCIA, NEGOCIO, CODCLIENTE, TELVENDEDOR, TIPOPAGO, TELCLIE, EMPRESA}
             rowtblEmbarquesBoletasRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowtblEmbarquesBoletasRow)
             Return rowtblEmbarquesBoletasRow
@@ -1324,6 +1335,7 @@ Partial Public Class DS_General
             Me.columnTELVENDEDOR = MyBase.Columns("TELVENDEDOR")
             Me.columnTIPOPAGO = MyBase.Columns("TIPOPAGO")
             Me.columnTELCLIE = MyBase.Columns("TELCLIE")
+            Me.columnEMPRESA = MyBase.Columns("EMPRESA")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1392,6 +1404,8 @@ Partial Public Class DS_General
             MyBase.Columns.Add(Me.columnTIPOPAGO)
             Me.columnTELCLIE = New Global.System.Data.DataColumn("TELCLIE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTELCLIE)
+            Me.columnEMPRESA = New Global.System.Data.DataColumn("EMPRESA", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnEMPRESA)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2683,6 +2697,8 @@ Partial Public Class DS_General
         
         Private columnTELCLIE As Global.System.Data.DataColumn
         
+        Private columnEMPRESA As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -2959,6 +2975,14 @@ Partial Public Class DS_General
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property EMPRESAColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnEMPRESA
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -3025,9 +3049,10 @@ Partial Public Class DS_General
                     ByVal CODCLIENTE As String,  _
                     ByVal TELVENDEDOR As String,  _
                     ByVal TIPOPAGO As String,  _
-                    ByVal TELCLIE As String) As tblEmbarquesBoletas1Row
+                    ByVal TELCLIE As String,  _
+                    ByVal EMPRESA As String) As tblEmbarquesBoletas1Row
             Dim rowtblEmbarquesBoletas1Row As tblEmbarquesBoletas1Row = CType(Me.NewRow,tblEmbarquesBoletas1Row)
-            Dim columnValuesArray() As Object = New Object() {FECHA, CODDOC, CORRELATIVO, NIT, NOMCLIENTE, DIRCLIENTE, EMAIL, TOTALVENTA, OBS, CODEMBARQUE, LAT, _LONG, DESREP, NOMVEN, CODPROD, DESPROD, CODMEDIDA, CANTIDAD, PRECIO, TOTALPRECIO, UXC, TOTALUNIDADES, EMBCAJAS, EMBUNIDADES, REFERENCIA, NEGOCIO, CODCLIENTE, TELVENDEDOR, TIPOPAGO, TELCLIE}
+            Dim columnValuesArray() As Object = New Object() {FECHA, CODDOC, CORRELATIVO, NIT, NOMCLIENTE, DIRCLIENTE, EMAIL, TOTALVENTA, OBS, CODEMBARQUE, LAT, _LONG, DESREP, NOMVEN, CODPROD, DESPROD, CODMEDIDA, CANTIDAD, PRECIO, TOTALPRECIO, UXC, TOTALUNIDADES, EMBCAJAS, EMBUNIDADES, REFERENCIA, NEGOCIO, CODCLIENTE, TELVENDEDOR, TIPOPAGO, TELCLIE, EMPRESA}
             rowtblEmbarquesBoletas1Row.ItemArray = columnValuesArray
             Me.Rows.Add(rowtblEmbarquesBoletas1Row)
             Return rowtblEmbarquesBoletas1Row
@@ -3080,6 +3105,7 @@ Partial Public Class DS_General
             Me.columnTELVENDEDOR = MyBase.Columns("TELVENDEDOR")
             Me.columnTIPOPAGO = MyBase.Columns("TIPOPAGO")
             Me.columnTELCLIE = MyBase.Columns("TELCLIE")
+            Me.columnEMPRESA = MyBase.Columns("EMPRESA")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3148,6 +3174,8 @@ Partial Public Class DS_General
             MyBase.Columns.Add(Me.columnTIPOPAGO)
             Me.columnTELCLIE = New Global.System.Data.DataColumn("TELCLIE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTELCLIE)
+            Me.columnEMPRESA = New Global.System.Data.DataColumn("EMPRESA", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnEMPRESA)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4943,6 +4971,21 @@ Partial Public Class DS_General
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property EMPRESA() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tabletblEmbarquesBoletas.EMPRESAColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'EMPRESA' de la tabla 'tblEmbarquesBoletas' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tabletblEmbarquesBoletas.EMPRESAColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Function IsFECHANull() As Boolean
             Return Me.IsNull(Me.tabletblEmbarquesBoletas.FECHAColumn)
         End Function
@@ -5299,6 +5342,18 @@ Partial Public Class DS_General
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub SetTELCLIENull()
             Me(Me.tabletblEmbarquesBoletas.TELCLIEColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsEMPRESANull() As Boolean
+            Return Me.IsNull(Me.tabletblEmbarquesBoletas.EMPRESAColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetEMPRESANull()
+            Me(Me.tabletblEmbarquesBoletas.EMPRESAColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -6618,6 +6673,21 @@ Partial Public Class DS_General
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property EMPRESA() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tabletblEmbarquesBoletas1.EMPRESAColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'EMPRESA' de la tabla 'tblEmbarquesBoletas1' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tabletblEmbarquesBoletas1.EMPRESAColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Function IsFECHANull() As Boolean
             Return Me.IsNull(Me.tabletblEmbarquesBoletas1.FECHAColumn)
         End Function
@@ -6974,6 +7044,18 @@ Partial Public Class DS_General
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub SetTELCLIENull()
             Me(Me.tabletblEmbarquesBoletas1.TELCLIEColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsEMPRESANull() As Boolean
+            Return Me.IsNull(Me.tabletblEmbarquesBoletas1.EMPRESAColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetEMPRESANull()
+            Me(Me.tabletblEmbarquesBoletas1.EMPRESAColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
