@@ -20,6 +20,14 @@ Public Class inicio
 
         End Try
 
+
+        If establecer_conexion() = True Then
+
+        Else
+            MsgBox("No se logro conectar al servidor, cierre e intente de nuevo")
+            Exit Sub
+        End If
+
         Me.txtEmbarquesAgrupados.Text = selected_agrupados
 
 
